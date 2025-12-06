@@ -1,0 +1,77 @@
+{% extends 'sidebar.html' %}
+
+{% load static %}
+
+{% block title %}Morea | Gerenciamento de Usuários{% endblock %}
+
+{% block stylesCustom %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="home__content">
+        <h1 class="textWhatMorea"> {% if user_update %} Atualizar Usuário {% else %} Cadastro de Usuário {% endif %}
+        </h1>
+        {% if errors %}
+        <div class="errors">
+            {% for error in errors %}
+            <div class="error">{{ error }} <button type="button" class="close-error">x</button></div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if message %}
+        <div class="message">{{ message }}<button type="button" class="close-message">x</button></div>
+        {% endif %}
+        <form action="{% if user_update %}{% url 'UpdateUser' user_update.id %}{% else %}{% url 'Register' %}{% endif %}"
+            method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" name="username" value="{{ user_update.username }}" required>
+            </div>
+            <div class="form-group">
+                <label for="first_name">Nome:</label>
+                <input type="text" id="first_name" name="first_name" value="{{ user_update.first_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Sobrenome:</label>
+                <input type="text" id="last_name" name="last_name" value="{{ user_update.last_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ user_update.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password">
+                {% if user_update %}
+                <small>Deixe em branco para manter a senha atual</small>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirme sua Senha:</label>
+                <input type="password" id="confirm_password" name="confirm_password">
+                <p id="error_confirm" class="error-message"></p>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="profile_photo">Foto de Perfil:</label>
+                <input type="file" id="profile_photo" name="profile_photo">
+            </div>
+            <div class="form-group">
+                <label for="description">Descrição:</label>
+                <textarea id="description" name="description">{{ user_update.description }}</textarea>
+            </div>
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="is_advisor" name="is_advisor" {% if user_update.is_advisor %}checked{% endif %}>
+                <label for="is_advisor">Orientador</label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="{% if user_update %}Atualizar{% else %}Cadastrar{% endif %}" class="buttonMore">
+            </div>
+        </form>
+        </div>
+        </div>
+        <script src="{% static 'js/register.js' %}"></script>
+        <script src="{% static 'js/error.js' %}"></script>
+{% endblock %}

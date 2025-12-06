@@ -1,0 +1,59 @@
+
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    restart: unless-stopped
+    command:
+      - --log.level=INFO
+      - --api.insecure=false
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.le.acme.tlschallenge=true
+      - --certificatesresolvers.le.acme.email=${TRAEFIK_EMAIL}
+      - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/letsencrypt:/letsencrypt
+    networks:
+      - traefik-public
+
+  web:
+    build: .
+    container_name: morea_web
+    restart: unless-stopped
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - 'traefik.http.routers.morea.rule=Host(`${DOMAIN}`)'
+      - "traefik.http.routers.morea.entrypoints=websecure"
+      - "traefik.http.routers.morea.tls=true"
+      - "traefik.http.routers.morea.tls.certresolver=le"
+      - "traefik.http.services.morea.loadbalancer.server.port=8000"
+      # redirect HTTP -> HTTPS
+      - "traefik.http.middlewares.morea-https-redirect.redirectscheme.scheme=https"
+      - 'traefik.http.routers.morea-http.rule=Host(`${DOMAIN}`)'
+      - "traefik.http.routers.morea-http.entrypoints=web"
+      - "traefik.http.routers.morea-http.middlewares=morea-https-redirect"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./media:/app/media
+      - ./static:/app/static
+    networks:
+      - morea_network
+      - traefik-public
+
+networks:
+  morea_network:
+    driver: bridge
+  traefik-public:
+    driver: bridge

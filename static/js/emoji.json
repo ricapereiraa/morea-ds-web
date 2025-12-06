@@ -1,0 +1,688 @@
+{
+	"emojis": [
+		{
+			"emoji": "♻",
+			"name": "recycling symbol",
+			"shortname": ":recycle:",
+			"unicode": "267b",
+			"html": "&#9851;",
+			"category": "Symbols (other-symbol)",
+			"order": "2072"
+		},
+		{
+			"emoji": "🙈",
+			"name": "see-no-evil monkey",
+			"shortname": ":see_no_evil:",
+			"unicode": "1f648",
+			"html": "&#128584;",
+			"category": "Smileys & Emotion (monkey-face)",
+			"order": "96"
+		},
+		{
+			"emoji": "✨",
+			"name": "sparkles",
+			"shortname": ":sparkles:",
+			"unicode": "2728",
+			"html": "&#10024;",
+			"category": "Activities (event)",
+			"order": "1760"
+		},
+		{
+			"emoji": "🔥",
+			"name": "fire",
+			"shortname": ":fire:",
+			"unicode": "1f525",
+			"html": "&#128293;",
+			"category": "Travel & Places (sky & weather)",
+			"order": "1753"
+		},
+		{
+			"emoji": "🎉",
+			"name": "party popper",
+			"shortname": ":tada:",
+			"unicode": "1f389",
+			"html": "&#127881;",
+			"category": "Activities (event)",
+			"order": "1762"
+		},
+		{
+			"emoji": "💚",
+			"name": "green heart",
+			"shortname": ":green_heart:",
+			"unicode": "1f49a",
+			"html": "&#128154;",
+			"category": "Smileys & Emotion (emotion)",
+			"order": "1293"
+		},
+		{
+			"emoji": "✅",
+			"name": "check mark button",
+			"shortname": ":white_check_mark:",
+			"unicode": "2705",
+			"html": "&#9989;",
+			"category": "Symbols (other-symbol)",
+			"order": "2078"
+		},
+		{
+			"emoji": "💫",
+			"name": "dizzy",
+			"shortname": ":dizzy:",
+			"unicode": "1f4ab",
+			"html": "&#128171;",
+			"category": "Smileys & Emotion (emotion)",
+			"order": "1308"
+		},
+		{
+			"emoji": "💥",
+			"name": "collision",
+			"shortname": ":boom:",
+			"unicode": "1f4a5",
+			"html": "&#128165;",
+			"category": "Smileys & Emotion (emotion)",
+			"order": "1305"
+		},
+		{
+			"emoji": "💩",
+			"name": "pile of poo",
+			"shortname": ":poop:",
+			"unicode": "1f4a9",
+			"html": "&#128169;",
+			"category": "Smileys & Emotion (face-costume)",
+			"order": "85"
+		},
+		{
+			"emoji": "👽",
+			"name": "alien",
+			"shortname": ":alien:",
+			"unicode": "1f47d",
+			"html": "&#128125;",
+			"category": "Smileys & Emotion (face-costume)",
+			"order": "83"
+		},
+		{
+			"emoji": "🍻",
+			"name": "clinking beer mugs",
+			"shortname": ":beers:",
+			"unicode": "1f37b",
+			"html": "&#127867;",
+			"category": "Food & Drink (drink)",
+			"order": "1530"
+		},
+		{
+			"emoji": "⚡",
+			"name": "high voltage",
+			"shortname": ":zap:",
+			"unicode": "26a1",
+			"html": "&#9889;",
+			"category": "Travel & Places (sky & weather)",
+			"order": "1748"
+		},
+		{
+			"emoji": "💸",
+			"name": "money with wings",
+			"shortname": ":money_with_wings:",
+			"unicode": "1f4b8",
+			"html": "&#128184;",
+			"category": "Objects (money)",
+			"order": "1896"
+		},
+		{
+			"emoji": "🚀",
+			"name": "rocket",
+			"shortname": ":rocket:",
+			"unicode": "1f680",
+			"html": "&#128640;",
+			"category": "Travel & Places (transport-air)",
+			"order": "1659"
+		},
+		{
+			"emoji": "💬",
+			"name": "speech balloon",
+			"shortname": ":speech_balloon:",
+			"unicode": "1f4ac",
+			"html": "&#128172;",
+			"category": "Smileys & Emotion (emotion)",
+			"order": "1309"
+		},
+		{
+			"emoji": "📱",
+			"name": "mobile phone",
+			"shortname": ":iphone:",
+			"unicode": "1f4f1",
+			"html": "&#128241;",
+			"category": "Objects (phone)",
+			"order": "1838"
+		},
+		{
+			"emoji": "🚨",
+			"name": "police car light",
+			"shortname": ":rotating_light:",
+			"unicode": "1f6a8",
+			"html": "&#128680;",
+			"category": "Travel & Places (transport-ground)",
+			"order": "1637"
+		},
+		{
+			"emoji": "⬇️",
+			"name": "down arrow",
+			"shortname": ":arrow_down:",
+			"unicode": "2b07",
+			"html": "&#11015;",
+			"category": "Symbols (arrow)",
+			"order": "2006"
+		},
+		{
+			"emoji": "💄",
+			"name": "lipstick",
+			"shortname": ":lipstick:",
+			"unicode": "1f484",
+			"html": "&#128132;",
+			"category": "Objects (clothing)",
+			"order": "1339"
+		},
+		{
+			"emoji": "📝",
+			"name": "memo",
+			"shortname": ":memo:",
+			"unicode": "1F4DD",
+			"html": "&#128221;",
+			"category": "Objects (writing)",
+			"order": ""
+		},
+		{
+			"emoji": "🔊",
+			"name": "speaker high volume",
+			"shortname": ":loud_sound:",
+			"unicode": "1f50a",
+			"html": "&#128266;",
+			"category": "Objects (sound)",
+			"order": "1817"
+		},
+		{
+			"emoji": "✏",
+			"name": "pencil",
+			"shortname": ":pencil2:",
+			"unicode": "270f",
+			"html": "&#9999;",
+			"category": "Objects (writing)",
+			"order": "1914"
+		},
+		{
+			"emoji": "🌱",
+			"name": "seedling",
+			"shortname": ":seedling:",
+			"unicode": "1f331",
+			"html": "&#127793;",
+			"category": "Animals & Nature (plant-other)",
+			"order": "1437"
+		},
+		{
+			"emoji": "💡",
+			"name": "light bulb",
+			"shortname": ":bulb:",
+			"unicode": "1f4a1",
+			"html": "&#128161;",
+			"category": "Objects (light & video)",
+			"order": "1871"
+		},
+		{
+			"emoji": "🔐",
+			"name": "locked with key",
+			"shortname": ":closed_lock_with_key:",
+			"unicode": "1f510",
+			"html": "&#128272;",
+			"category": "Objects (lock)",
+			"order": "1947"
+		},
+		{
+			"emoji": "⬆️",
+			"name": "up arrow",
+			"shortname": ":arrow_up:",
+			"unicode": "2b06",
+			"html": "&#11014;",
+			"category": "Symbols (arrow)",
+			"order": "2002"
+		},
+		{
+			"emoji": "🐛",
+			"name": "bug",
+			"shortname": ":bug:",
+			"unicode": "1f41b",
+			"html": "&#128027;",
+			"category": "Animals & Nature (animal-bug)",
+			"order": "1420"
+		},
+		{
+			"emoji": "🍱",
+			"name": "bento box",
+			"shortname": ":bento:",
+			"unicode": "1f371",
+			"html": "&#127857;",
+			"category": "Food & Drink (food-asian)",
+			"order": "1495"
+		},
+		{
+			"emoji": "📌",
+			"name": "pushpin",
+			"shortname": ":pushpin:",
+			"unicode": "1f4cc",
+			"html": "&#128204;",
+			"category": "Objects (office)",
+			"order": "1934"
+		},
+		{
+			"emoji": "🔒",
+			"name": "locked",
+			"shortname": ":lock:",
+			"unicode": "1f512",
+			"html": "&#128274;",
+			"category": "Objects (lock)",
+			"order": "1944"
+		},
+		{
+			"emoji": "🚩",
+			"name": "triangular flag",
+			"shortname": ":triangular_flag_on_post:",
+			"unicode": "1f6a9",
+			"html": "&#128681;",
+			"category": "Flags (flag)",
+			"order": "2182"
+		},
+		{
+			"emoji": "⏪",
+			"name": "fast reverse button",
+			"shortname": ":rewind:",
+			"unicode": "23ea",
+			"html": "&#9194;",
+			"category": "Symbols (av-symbol)",
+			"order": "2056"
+		},
+		{
+			"emoji": "➕",
+			"name": "plus sign",
+			"shortname": ":heavy_plus_sign:",
+			"unicode": "2795",
+			"html": "&#10133;",
+			"category": "Symbols (other-symbol)",
+			"order": "2084"
+		},
+		{
+			"emoji": "👥",
+			"name": "busts in silhouette",
+			"shortname": ":busts_in_silhouette:",
+			"unicode": "1f465",
+			"html": "&#128101;",
+			"category": "People & Body (person-symbol)",
+			"order": "767"
+		},
+		{
+			"emoji": "🔨",
+			"name": "hammer",
+			"shortname": ":hammer:",
+			"unicode": "1f528",
+			"html": "&#128296;",
+			"category": "Objects (tool)",
+			"order": "1950"
+		},
+		{
+			"emoji": "👔",
+			"name": "necktie",
+			"shortname": ":necktie:",
+			"unicode": "1f454",
+			"html": "&#128084;",
+			"category": "Objects (clothing)",
+			"order": "1316"
+		},
+		{
+			"emoji": "➖",
+			"name": "minus sign",
+			"shortname": ":heavy_minus_sign:",
+			"unicode": "2796",
+			"html": "&#10134;",
+			"category": "Symbols (other-symbol)",
+			"order": "2088"
+		},
+		{
+			"emoji": "🌐",
+			"name": "globe with meridians",
+			"shortname": ":globe_with_meridians:",
+			"unicode": "1f310",
+			"html": "&#127760;",
+			"category": "Travel & Places (place-map)",
+			"order": "1541"
+		},
+		{
+			"emoji": "👷",
+			"name": "construction worker",
+			"shortname": ":construction_worker:",
+			"unicode": "1f477",
+			"html": "&#128119;",
+			"category": "People & Body (person-role)",
+			"order": "393"
+		},
+		{
+			"emoji": "🔍",
+			"name": "magnifying glass tilted left",
+			"shortname": ":mag:",
+			"unicode": "1f50d",
+			"html": "&#128269;",
+			"category": "Objects (light & video)",
+			"order": "1865"
+		},
+		{
+			"emoji": "📦",
+			"name": "package",
+			"shortname": ":package:",
+			"unicode": "1f4e6",
+			"html": "&#128230;",
+			"category": "Objects (mail)",
+			"order": "1907"
+		},
+		{
+			"emoji": "🚑",
+			"name": "ambulance",
+			"shortname": ":ambulance:",
+			"unicode": "1f691",
+			"html": "&#128657;",
+			"category": "Travel & Places (transport-ground)",
+			"order": "1618"
+		},
+		{
+			"emoji": "📈",
+			"name": "chart increasing",
+			"shortname": ":chart_with_upwards_trend:",
+			"unicode": "1f4c8",
+			"html": "&#128200;",
+			"category": "Objects (office)",
+			"order": "1930"
+		},
+		{
+			"emoji": "🚧",
+			"name": "construction",
+			"shortname": ":construction:",
+			"unicode": "1f6a7",
+			"html": "&#128679;",
+			"category": "Travel & Places (transport-ground)",
+			"order": "1640"
+		},
+		{
+			"emoji": "🚚",
+			"name": "delivery truck",
+			"shortname": ":truck:",
+			"unicode": "1f69a",
+			"html": "&#128666;",
+			"category": "Travel & Places (transport-ground)",
+			"order": "1627"
+		},
+		{
+			"emoji": "🔇",
+			"name": "muted speaker",
+			"shortname": ":mute:",
+			"unicode": "1f507",
+			"html": "&#128263;",
+			"category": "Objects (sound)",
+			"order": "1814"
+		},
+		{
+			"emoji": "♿",
+			"name": "wheelchair symbol",
+			"shortname": ":wheelchair:",
+			"unicode": "267f",
+			"html": "&#9855;",
+			"category": "Symbols (transport-sign)",
+			"order": "1979"
+		},
+		{
+			"emoji": "🔧",
+			"name": "wrench",
+			"shortname": ":wrench:",
+			"unicode": "1f527",
+			"html": "&#128295;",
+			"category": "Objects (tool)",
+			"order": "1959"
+		},
+		{
+			"emoji": "📄",
+			"name": "page facing up",
+			"shortname": ":page_facing_up:",
+			"unicode": "1f4c4",
+			"html": "&#128196;",
+			"category": "Objects (book-paper)",
+			"order": "1885"
+		},
+		{
+			"emoji": "🔖",
+			"name": "bookmark",
+			"shortname": ":bookmark:",
+			"unicode": "1f516",
+			"html": "&#128278;",
+			"category": "Objects (book-paper)",
+			"order": "1889"
+		},
+		{
+			"emoji": "🚸",
+			"name": "children crossing",
+			"shortname": ":children_crossing:",
+			"unicode": "1f6b8",
+			"html": "&#128696;",
+			"category": "Symbols (warning)",
+			"order": "1990"
+		},
+		{
+			"emoji": "🔀",
+			"name": "shuffle tracks button",
+			"shortname": ":twisted_rightwards_arrows:",
+			"unicode": "1f500",
+			"html": "&#128256;",
+			"category": "Symbols (av-symbol)",
+			"order": "2048"
+		},
+		{
+			"emoji": "🛂",
+			"name": "passport control",
+			"shortname": ":passport_control:",
+			"unicode": "1f6c2",
+			"html": "&#128706;",
+			"category": "Symbols (transport-sign)",
+			"order": "1985"
+		},
+		{
+			"emoji": "⚰",
+			"name": "coffin",
+			"shortname": ":coffin:",
+			"unicode": "26b0",
+			"html": "&#9904;",
+			"category": "Objects (other-object)",
+			"order": "1970"
+		},
+		{
+			"emoji": "⚗",
+			"name": "alembic",
+			"shortname": ":alembic:",
+			"unicode": "2697",
+			"html": "&#9879;",
+			"category": "Objects (science)",
+			"order": "1963"
+		},
+		{
+			"emoji": "🗑",
+			"name": "wastebasket",
+			"shortname": ":wastebasket:",
+			"unicode": "1f5d1",
+			"html": "&#128465;",
+			"category": "Objects (office)",
+			"order": "1943"
+		},
+		{
+			"emoji": "🗃",
+			"name": "card file box",
+			"shortname": ":card_file_box:",
+			"unicode": "1F5C3",
+			"html": "&#128451;",
+			"category": "Objects (office)",
+			"order": ""
+		},
+		{
+			"emoji": "🏷",
+			"name": "label",
+			"shortname": ":label:",
+			"unicode": "1f3f7",
+			"html": "&#127991;",
+			"category": "Objects (book-paper)",
+			"order": "1890"
+		},
+		{
+			"emoji": "🏗",
+			"name": "building construction",
+			"shortname": ":building_construction:",
+			"unicode": "1F3D7",
+			"html": "&#127959;",
+			"category": "Travel & Places (place-building)",
+			"order": ""
+		},
+		{
+			"emoji": "🥚",
+			"name": "egg",
+			"shortname": ":egg:",
+			"unicode": "1f95a",
+			"html": "&#129370;",
+			"category": "Food & Drink (food-prepared)",
+			"order": "1489"
+		},
+		{
+			"emoji": "🤡",
+			"name": "clown face",
+			"shortname": ":clown_face:",
+			"unicode": "1F921",
+			"html": "&#x1F921;",
+			"category": "Smileys & Emotion (face-costume)",
+			"order": ""
+		},
+		{
+			"emoji": "🧑‍💻",
+			"name": "technologist",
+			"shortname": ":technologist:",
+			"unicode": "1F9D1 200D 1F4BB",
+			"html": "&#x1F9D1;&#x200D;&#x1F4BB;",
+			"category": "People & Body (person-role)",
+			"order": ""
+		},
+		{
+			"emoji": "🏗️",
+			"name": "building construction",
+			"shortname": ":building_construction:",
+			"unicode": "1F3D7 FE0F",
+			"html": "&#x1F3D7;&#xFE0F;",
+			"category": "Travel & Places (place-building)",
+			"order": ""
+		},
+		{
+			"emoji": "🧱",
+			"name": "brick",
+			"shortname": ":bricks:",
+			"unicode": "1F9F1",
+			"html": "&#x1F9F1;",
+			"category": "Travel & Places (place-building)",
+			"order": ""
+		},
+		{
+			"emoji": "🥅",
+			"name": "goal net",
+			"shortname": ":goal_net:",
+			"unicode": "1F945",
+			"html": "&#x1F945;",
+			"category": "Activities (sport)",
+			"order": ""
+		},
+		{
+			"emoji": "🧵",
+			"name": "thread",
+			"shortname": ":thread:",
+			"unicode": "1F9F5",
+			"html": "&#x1F9F5;",
+			"category": "Activities (arts & crafts)",
+			"order": ""
+		},
+		{
+			"emoji": "🦺",
+			"name": "safety vest",
+			"shortname": ":safety_vest:",
+			"unicode": "1F9BA",
+			"html": "&#x1F9BA;",
+			"category": "Objects (clothing)",
+			"order": ""
+		},
+		{
+			"emoji": "🏷️",
+			"name": "label",
+			"shortname": ":label:",
+			"unicode": "1F3F7 FE0F",
+			"html": "&#x1F3F7;&#xFE0F;",
+			"category": "Objects (book-paper)",
+			"order": ""
+		},
+		{
+			"emoji": "🗃️",
+			"name": "card file box",
+			"shortname": ":card_file_box:",
+			"unicode": "1F5C3 FE0F",
+			"html": "&#x1F5C3;&#xFE0F;",
+			"category": "Objects (office)",
+			"order": ""
+		},
+		{
+			"emoji": "🗑️",
+			"name": "wastebasket",
+			"shortname": ":wastebasket:",
+			"unicode": "1F5D1 FE0F",
+			"html": "&#x1F5D1;&#xFE0F;",
+			"category": "Objects (office)",
+			"order": ""
+		},
+		{
+			"emoji": "⚗️",
+			"name": "alembic",
+			"shortname": ":alembic:",
+			"unicode": "2697 FE0F",
+			"html": "&#x2697;&#xFE0F;",
+			"category": "Objects (science)",
+			"order": ""
+		},
+		{
+			"emoji": "🧪",
+			"name": "test tube",
+			"shortname": ":test_tube:",
+			"unicode": "1F9EA",
+			"html": "&#x1F9EA;",
+			"category": "Objects (science)",
+			"order": ""
+		},
+		{
+			"emoji": "🩹",
+			"name": "adhesive bandage",
+			"shortname": ":adhesive_bandage:",
+			"unicode": "1FA79",
+			"html": "&#x1FA79;",
+			"category": "Objects (medical)",
+			"order": ""
+		},
+		{
+			"emoji": "🩺",
+			"name": "stethoscope",
+			"shortname": ":stethoscope:",
+			"unicode": "1FA7A",
+			"html": "&#x1FA7A;",
+			"category": "Objects (medical)",
+			"order": ""
+		},
+		{
+			"emoji": "⚰️",
+			"name": "coffin",
+			"shortname": ":coffin:",
+			"unicode": "26B0 FE0F",
+			"html": "&#x26B0;&#xFE0F;",
+			"category": "Objects (other-object)",
+			"order": ""
+		}
+	]
+}

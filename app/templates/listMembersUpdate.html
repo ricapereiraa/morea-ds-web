@@ -1,0 +1,24 @@
+{% extends 'sidebar.html' %}
+
+{% load static %}
+
+{% block title %}Morea | Gerenciamento de Usuários{% endblock %}
+
+{% block stylesCustom %}
+<link rel="stylesheet" href="{% static 'css/listMembersUpdate.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.mincss" />
+{% endblock %}
+
+{% block content %}
+<div class="container-white">
+    <h1>Membros Cadastrados</h1>
+    <ul class="member-list">
+        {% for member in members %}
+        <li class="member-item">
+            <span class="member-name">{{ member.first_name }} {{ member.last_name }}</span>
+            <a href="{% url 'UpdateUser' member.id %}" class="member-link"><i class="fas fa-plus"></i></a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

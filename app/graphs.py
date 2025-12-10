@@ -3,7 +3,6 @@ from collections import defaultdict
 import os
 
 import plotly.graph_objects as go
-from plotly.colors import qualitative as plotly_colors
 from django.conf import settings
 from django.utils import timezone
 
@@ -44,9 +43,26 @@ def _series_by_device(device_ids, date_from):
 
 
 def _write_line_chart(series_by_device, collection_unit, media_path):
-    """Create an interactive line chart without relying on pandas."""
+    """Create an interactive line chart styled to mirror Grafana's dark dashboards."""
     fig = go.Figure()
-    palette = plotly_colors.Set2
+    grafana_palette = [
+        "#7EB26D",
+        "#EAB839",
+        "#6ED0E0",
+        "#EF843C",
+        "#E24D42",
+        "#1F78C1",
+        "#BA43A9",
+        "#705DA0",
+        "#508642",
+        "#CCA300",
+        "#447EBC",
+        "#C15C17",
+        "#890F02",
+        "#0A437C",
+        "#6D1F62",
+        "#584477",
+    ]
 
     for index, (device_name, samples) in enumerate(sorted(series_by_device.items())):
         if not samples:
@@ -59,8 +75,17 @@ def _write_line_chart(series_by_device, collection_unit, media_path):
                 y=list(values),
                 mode="lines+markers",
                 name=device_name,
-                line=dict(color=palette[index % len(palette)], width=2),
-                marker=dict(size=7, symbol="circle", line=dict(width=0)),
+                line=dict(
+                    color=grafana_palette[index % len(grafana_palette)],
+                    width=2.6,
+                    shape="spline",
+                ),
+                marker=dict(
+                    size=6,
+                    symbol="circle",
+                    color=grafana_palette[index % len(grafana_palette)],
+                    line=dict(width=1, color="#0b1220"),
+                ),
                 hovertemplate=(
                     "%{x|%d/%m %H:%M}<br>%{y:.2f} "
                     f"{collection_unit}<extra>{device_name}</extra>"
@@ -71,20 +96,30 @@ def _write_line_chart(series_by_device, collection_unit, media_path):
     has_data = any(samples for samples in series_by_device.values())
 
     fig.update_layout(
-        template="plotly_white",
+        template=None,
         dragmode=False,
-        margin=dict(l=24, r=24, t=48, b=24),
+        height=520,
+        margin=dict(l=28, r=160, t=64, b=40),
         legend=dict(
             title="Dispositivos",
-            orientation="h",
-            x=0.0,
-            y=1.15,
-            bgcolor="rgba(255,255,255,0.5)",
+            orientation="v",
+            x=1.02,
+            y=1,
+            bgcolor="rgba(17, 24, 39, 0.9)",
+            bordercolor="rgba(75, 85, 99, 0.6)",
+            borderwidth=1,
+            font=dict(color="#E5E7EB"),
         ),
         hovermode="x unified",
-        plot_bgcolor="rgba(248, 250, 252, 0.95)",
-        paper_bgcolor="rgba(255, 255, 255, 1)",
-        font=dict(family="Inter, Arial, sans-serif", size=12, color="#1f2933"),
+        hoverlabel=dict(
+            bgcolor="#111827",
+            bordercolor="#0EA5E9",
+            font=dict(color="#E5E7EB"),
+            namelength=-1,
+        ),
+        plot_bgcolor="#0F172A",
+        paper_bgcolor="#0B1220",
+        font=dict(family="Inter, 'Segoe UI', sans-serif", size=12, color="#E5E7EB"),
         yaxis_title=collection_unit,
     )
 
@@ -92,23 +127,31 @@ def _write_line_chart(series_by_device, collection_unit, media_path):
         title="Horário",
         tickformat="%H:%M",
         showgrid=True,
-        gridcolor="rgba(148, 163, 184, 0.35)",
-        linecolor="rgba(71, 85, 105, 0.45)",
+        gridcolor="rgba(75, 85, 99, 0.35)",
+        linecolor="rgba(75, 85, 99, 0.7)",
         zeroline=False,
+        ticks="outside",
+        tickfont=dict(color="#CBD5E1"),
+        titlefont=dict(color="#E5E7EB"),
+        rangeselector=None,
+        rangeslider_visible=False,
     )
 
     fig.update_yaxes(
         showgrid=True,
-        gridcolor="rgba(148, 163, 184, 0.35)",
-        linecolor="rgba(71, 85, 105, 0.45)",
+        gridcolor="rgba(75, 85, 99, 0.35)",
+        linecolor="rgba(75, 85, 99, 0.7)",
         zeroline=False,
+        ticks="outside",
+        tickfont=dict(color="#CBD5E1"),
+        titlefont=dict(color="#E5E7EB"),
     )
 
     if not has_data:
         fig.add_annotation(
             text="Nenhum registro coletado nas últimas 24h",
             showarrow=False,
-            font=dict(size=14, color="#475569"),
+            font=dict(size=14, color="#CBD5E1"),
             xref="paper",
             yref="paper",
             x=0.5,
@@ -117,7 +160,10 @@ def _write_line_chart(series_by_device, collection_unit, media_path):
         fig.update_layout(hovermode=False)
 
     os.makedirs(os.path.dirname(media_path), exist_ok=True)
-    fig.write_html(media_path, config={'displayModeBar': False})
+    fig.write_html(
+        media_path,
+        config={'displayModeBar': False, 'responsive': True},
+    )
 
 
 def generateAllMotes24hRaw():

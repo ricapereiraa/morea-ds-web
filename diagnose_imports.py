@@ -1,9 +1,8 @@
-#!/bin/bash
-# Diagnostic script to check Python package installation inside running container
-# Run: docker exec <container_id_or_name> python /tmp/diagnose_imports.py
+#!/usr/bin/env python3
+"""Diagnostic script to validate critical Python packages inside the container."""
 
-import sys
 import subprocess
+import sys
 
 print("=" * 60)
 print("Python Package Diagnostic Script")
@@ -14,7 +13,6 @@ print()
 
 # List of critical packages to check
 critical_packages = [
-    'pandas',
     'numpy',
     'plotly',
     'Django',
@@ -45,8 +43,7 @@ print()
 
 imports_to_test = {
     'numpy': 'import numpy as np',
-    'pandas': 'import pandas as pd',
-    'plotly.express': 'import plotly.express as px',
+    'plotly.graph_objects': 'import plotly.graph_objects as go',
     'Django': 'import django',
     'django_extensions': 'import django_extensions',
     'rest_framework': 'import rest_framework',

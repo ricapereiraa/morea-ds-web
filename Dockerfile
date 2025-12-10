@@ -36,15 +36,22 @@ ENV PIP_EXTRA_INDEX_URL=https://www.piwheels.org/simple
 # Instalar dependências do build (meson, meson-python, ninja)
 RUN pip install --no-cache-dir --progress-bar off meson meson-python ninja setuptools_scm
 
-# Instalar dependências Python na ordem: numpy -> pandas -> plotly -> demais
+# Instalar dependências Python principais e validar imports críticos
 RUN pip cache purge || true && \
-    pip install --no-cache-dir --progress-bar off --index-url https://pypi.org/simple numpy==1.26.4 && \
-    pip install --no-cache-dir --progress-bar off --index-url https://pypi.org/simple pandas==2.2.0 && \
-    pip install --no-cache-dir --progress-bar off --index-url https://pypi.org/simple plotly==5.19.0 && \
+    pip install --no-cache-dir --progress-bar off --extra-index-url "${PIP_EXTRA_INDEX_URL}" numpy==1.26.4 && \
+    pip install --no-cache-dir --progress-bar off --extra-index-url "${PIP_EXTRA_INDEX_URL}" plotly==5.19.0 && \
     pip install --no-cache-dir --progress-bar off --extra-index-url "${PIP_EXTRA_INDEX_URL}" -r /app/requirements.txt && \
     rm -rf /tmp/* /var/tmp/* ~/.cache/pip && \
     find /usr/local/lib/python3.11 -type d -name "__pycache__" -delete 2>/dev/null || true && \
     find /usr/local/lib/python3.11 -name "*.pyc" -delete 2>/dev/null || true
+
+RUN python - <<'PY'
+import numpy
+import plotly.graph_objects as go
+
+print("✓ numpy", numpy.__version__)
+print("✓ plotly", go.__name__)
+PY
 
 COPY . /app/
 

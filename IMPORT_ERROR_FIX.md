@@ -1,14 +1,11 @@
-# Solução para erro "ImportError: Plotly express requires pandas"
+# Plotly import diagnostics (atualizado em dezembro/2025)
 
-## Causa provável
-O erro ocorre quando:
-1. `pandas` não foi instalado corretamente durante o build Docker
-2. Há conflito entre versões de `pandas` e `plotly`
-3. A instalação foi interrompida (falta `|| true` mascarando o erro)
+## O que mudou?
+Os gráficos HTML agora são gerados diretamente com `plotly.graph_objects`, eliminando a dependência do `pandas`. O erro `ImportError: Plotly express requires pandas` não deve mais ocorrer em builds recentes. Caso você ainda veja essa mensagem, provavelmente está executando uma imagem antiga: faça rebuild seguindo as etapas abaixo.
 
-## Soluções Rápidas
+## Soluções rápidas
 
-### Solução 1: Rebuild com cache limpo (Recomendado)
+### Solução 1: Rebuild com cache limpo (recomendado)
 
 No manager (192.168.1.80):
 
@@ -54,7 +51,7 @@ Isso mostrará:
 - Quais imports funcionam/falham
 - Mensagens de erro específicas
 
-### Solução 3: Fix manual no container (Emergencial, não persiste ao reiniciar)
+### Solução 3: Fix manual no container (emergencial, não persiste ao reiniciar)
 
 Se o serviço estiver rodando e quiser verificar rápido:
 
@@ -62,11 +59,11 @@ Se o serviço estiver rodando e quiser verificar rápido:
 # Entre no container
 docker exec -it <container_id> /bin/bash
 
-# Dentro do container, reinstale pandas
-pip install --upgrade pandas plotly
+# Dentro do container, apenas garanta a presença do Plotly
+pip install --upgrade plotly
 
-# Teste o import
-python3 -c "import plotly.express; print('OK')"
+# Teste o import com a nova stack
+python3 -c "import plotly.graph_objects as go; print('OK')"
 
 # Saia
 exit
@@ -83,28 +80,22 @@ Antes de fazer push/deploy, teste localmente:
 docker build -t morea-ds-web:test .
 
 # Execute um container de teste
-docker run --rm morea-ds-web:test python3 -c "import pandas; import plotly.express; print('✓ All imports OK')"
+docker run --rm morea-ds-web:test python3 -c "import plotly.graph_objects as go; print('✓ Plotly OK')"
 ```
 
 Se esse comando retornar "All imports OK", a imagem está boa.
 
 ## Se ainda falhar após rebuild
 
-1. Verifique `requirements.txt` — certifique-se de que `pandas` e `plotly` estão presentes.
-2. Verifique a ordem — `numpy` e `pandas` devem vir antes de `plotly`:
-   ```
-   numpy==1.26.4
-   pandas==2.2.0
-   plotly==5.19.0
-   ```
-3. Se o problema for conexão ao PyPI durante build, considere usar um mirror/cache local:
+1. Verifique `requirements.txt` — `plotly` deve estar presente.
+2. Se o problema for conexão ao PyPI durante build, considere usar um mirror/cache local:
    - Aumentar timeout: `pip install --default-timeout=1000 -r requirements.txt`
    - Ou compilar em uma máquina com melhor conectividade
 
 ## Checklist rápido
 
-- [ ] `pandas` e `plotly` estão em `requirements.txt`?
+- [ ] `plotly` está em `requirements.txt`?
 - [ ] Rebuild com `--no-cache` foi executado?
-- [ ] Nova imagem foi pushed para Docker Hub?
+- [ ] Nova imagem foi enviada para o Docker Hub?
 - [ ] Stack foi atualizada (`docker stack deploy`)?
-- [ ] Container consegue fazer import de `plotly.express`?
+- [ ] Container consegue fazer import de `plotly.graph_objects`?

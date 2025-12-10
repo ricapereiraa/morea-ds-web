@@ -103,6 +103,13 @@ elif (os.getenv("DBTYPE") == "SQLite3"):
             'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),
         }
     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
@@ -158,16 +165,12 @@ AUTH_USER_MODEL = 'app.ExtendUser'
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 
-if (os.getenv("ENVIRONMENT") == "DEV"):
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static/')
-    ]
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static/')
+]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-elif (os.getenv("ENVIRONMENT") == 'PROD'):
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static/')
-    ]
+if (os.getenv("ENVIRONMENT") == 'PROD'):
     MEDIA_ROOT = '/var/www/html/Morea/media/'
     STATIC_ROOT = '/var/www/html/Morea/static'
 

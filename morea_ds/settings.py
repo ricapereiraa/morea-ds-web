@@ -163,13 +163,24 @@ USE_TZ = True
 AUTH_USER_MODEL = 'app.ExtendUser'
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
+# Diretórios onde o Django procura arquivos estáticos (antes do collectstatic)
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/')
 ]
+
+# Diretório onde collectstatic coloca todos os arquivos estáticos coletados
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# Finders de arquivos estáticos (padrão do Django, mas explícito para garantir)
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 if (os.getenv("ENVIRONMENT") == 'PROD'):
     MEDIA_ROOT = '/var/www/html/Morea/media/'

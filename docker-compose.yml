@@ -1,6 +1,3 @@
-
-version: '3.8'
-
 services:
   traefik:
     image: traefik:v2.10
@@ -46,8 +43,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./media:/app/media
-      - ./static:/app/static
+      - ./media:/app/media:Z
     networks:
       - morea_network
       - traefik-public

@@ -5,21 +5,126 @@
 {% block title %}Morea | Home{% endblock %}
 
 {% block stylesCustom %}
-  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/dashboard_grafana.css' %}" />
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <h1>Gráficos Brutos das Últimas 24 horas</h1>
-  <div class="graph">
-    <iframe class="iframe" src="{% get_media_prefix %}{{wMote.file_path}}" title="test"></iframe>
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Monitoramento de Consumo</h1>
+    <div class="time-range">
+      <span class="time-badge">Últimas 24 horas</span>
+    </div>
   </div>
-  <div class="graph">
-    <iframe class="iframe" src="{% get_media_prefix %}{{eMote.file_path}}" title="test"></iframe>
+  
+  <div class="dashboard-tabs">
+    <button class="tab-button active" data-tab="overview">
+      <span class="tab-label">Visão Geral</span>
+    </button>
+    <button class="tab-button" data-tab="water">
+      <span class="tab-label">Água</span>
+      <span class="tab-unit">Litros (L)</span>
+    </button>
+    <button class="tab-button" data-tab="energy">
+      <span class="tab-label">Energia</span>
+      <span class="tab-unit">Watts (W)</span>
+    </button>
+    <button class="tab-button" data-tab="gas">
+      <span class="tab-label">Gás</span>
+      <span class="tab-unit">m³</span>
+    </button>
   </div>
-  <div class="graph">
-    <iframe class="iframe" src="{% get_media_prefix %}{{gMote.file_path}}" title="test"></iframe>
+
+  <div class="graph-container">
+    <!-- Visão Geral - Todos os gráficos -->
+    <div class="graph-panel active" id="panel-overview">
+      <div class="overview-grid">
+        <div class="overview-item">
+          <div class="panel-header-small">
+            <h3>Consumo de Água</h3>
+            <span class="metric-badge-small">Litros (L)</span>
+          </div>
+          <div class="graph-small">
+            <iframe class="iframe" src="{% get_media_prefix %}{{wMote.file_path}}" title="Gráfico de Consumo de Água"></iframe>
+          </div>
+        </div>
+
+        <div class="overview-item">
+          <div class="panel-header-small">
+            <h3>Consumo de Energia</h3>
+            <span class="metric-badge-small">Watts (W)</span>
+          </div>
+          <div class="graph-small">
+            <iframe class="iframe" src="{% get_media_prefix %}{{eMote.file_path}}" title="Gráfico de Consumo de Energia"></iframe>
+          </div>
+        </div>
+
+        <div class="overview-item">
+          <div class="panel-header-small">
+            <h3>Consumo de Gás</h3>
+            <span class="metric-badge-small">m³</span>
+          </div>
+          <div class="graph-small">
+            <iframe class="iframe" src="{% get_media_prefix %}{{gMote.file_path}}" title="Gráfico de Consumo de Gás"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráfico individual - Água -->
+    <div class="graph-panel" id="panel-water">
+      <div class="panel-header">
+        <h2>Consumo de Água</h2>
+        <span class="metric-badge">Litros (L)</span>
+      </div>
+      <div class="graph">
+        <iframe class="iframe" src="{% get_media_prefix %}{{wMote.file_path}}" title="Gráfico de Consumo de Água"></iframe>
+      </div>
+    </div>
+
+    <!-- Gráfico individual - Energia -->
+    <div class="graph-panel" id="panel-energy">
+      <div class="panel-header">
+        <h2>Consumo de Energia</h2>
+        <span class="metric-badge">Watts (W)</span>
+      </div>
+      <div class="graph">
+        <iframe class="iframe" src="{% get_media_prefix %}{{eMote.file_path}}" title="Gráfico de Consumo de Energia"></iframe>
+      </div>
+    </div>
+
+    <!-- Gráfico individual - Gás -->
+    <div class="graph-panel" id="panel-gas">
+      <div class="panel-header">
+        <h2>Consumo de Gás</h2>
+        <span class="metric-badge">Metros Cúbicos (m³)</span>
+      </div>
+      <div class="graph">
+        <iframe class="iframe" src="{% get_media_prefix %}{{gMote.file_path}}" title="Gráfico de Consumo de Gás"></iframe>
+      </div>
+    </div>
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const graphPanels = document.querySelectorAll('.graph-panel');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const tabName = this.getAttribute('data-tab');
+      
+      // Remove active class from all tabs and panels
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      graphPanels.forEach(panel => panel.classList.remove('active'));
+      
+      // Add active class to clicked tab and corresponding panel
+      this.classList.add('active');
+      document.getElementById(`panel-${tabName}`).classList.add('active');
+    });
+  });
+});
+</script>
 {% endblock %}
 

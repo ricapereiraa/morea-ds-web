@@ -45,23 +45,20 @@ def _series_by_device(device_ids, date_from):
 def _write_line_chart(series_by_device, collection_unit, media_path):
     """Create an interactive line chart styled to mirror Grafana's dark dashboards."""
     fig = go.Figure()
+    # Paleta de cores Grafana moderna
     grafana_palette = [
-        "#7EB26D",
-        "#EAB839",
-        "#6ED0E0",
-        "#EF843C",
-        "#E24D42",
-        "#1F78C1",
-        "#BA43A9",
-        "#705DA0",
-        "#508642",
-        "#CCA300",
-        "#447EBC",
-        "#C15C17",
-        "#890F02",
-        "#0A437C",
-        "#6D1F62",
-        "#584477",
+        "#73BF69",  # Verde
+        "#F2704F",  # Laranja
+        "#B877D9",  # Roxo
+        "#5794F2",  # Azul
+        "#F2C962",  # Amarelo
+        "#00A0EB",  # Azul claro
+        "#FF6B5B",  # Vermelho
+        "#1F4788",  # Azul escuro
+        "#8AB4B4",  # Teal
+        "#E67C73",  # Rosa
+        "#2C6E49",  # Verde escuro
+        "#D63031",  # Vermelho intenso
     ]
 
     for index, (device_name, samples) in enumerate(sorted(series_by_device.items())):
@@ -73,22 +70,21 @@ def _write_line_chart(series_by_device, collection_unit, media_path):
             go.Scatter(
                 x=list(times),
                 y=list(values),
-                mode="lines+markers",
+                mode="lines",
                 name=device_name,
                 line=dict(
                     color=grafana_palette[index % len(grafana_palette)],
-                    width=2.6,
-                    shape="spline",
+                    width=2.5,
+                    shape="linear",
                 ),
-                marker=dict(
-                    size=6,
-                    symbol="circle",
-                    color=grafana_palette[index % len(grafana_palette)],
-                    line=dict(width=1, color="#0b1220"),
-                ),
+                fill="tozeroy",
+                fillcolor=grafana_palette[index % len(grafana_palette)],
+                opacity=0.7,
                 hovertemplate=(
-                    "%{x|%d/%m %H:%M}<br>%{y:.2f} "
-                    f"{collection_unit}<extra>{device_name}</extra>"
+                    "<b>%{fullData.name}</b><br>"
+                    "Horário: %{x|%H:%M}<br>"
+                    f"Consumo: %{{y:.2f}} {collection_unit}"
+                    "<extra></extra>"
                 ),
             )
         )
@@ -97,54 +93,63 @@ def _write_line_chart(series_by_device, collection_unit, media_path):
 
     fig.update_layout(
         template=None,
-        dragmode=False,
-        height=520,
-        margin=dict(l=28, r=160, t=64, b=40),
+        dragmode="zoom",
+        height=340,
+        margin=dict(l=50, r=100, t=15, b=45),
         legend=dict(
-            title="Dispositivos",
+            title="",
             orientation="v",
             x=1.02,
             y=1,
-            bgcolor="rgba(17, 24, 39, 0.9)",
+            bgcolor="rgba(31, 41, 55, 0.95)",
             bordercolor="rgba(75, 85, 99, 0.6)",
             borderwidth=1,
-            font=dict(color="#E5E7EB"),
+            font=dict(color="#E5E7EB", size=10),
+            tracegroupgap=6,
         ),
         hovermode="x unified",
         hoverlabel=dict(
-            bgcolor="#111827",
-            bordercolor="#0EA5E9",
-            font=dict(color="#E5E7EB"),
+            bgcolor="#1f2937",
+            bordercolor="#5794F2",
+            font=dict(color="#E5E7EB", size=12),
             namelength=-1,
         ),
-        plot_bgcolor="#0F172A",
-        paper_bgcolor="#0B1220",
-        font=dict(family="Inter, 'Segoe UI', sans-serif", size=12, color="#E5E7EB"),
-        yaxis_title=collection_unit,
+        plot_bgcolor="#111827",
+        paper_bgcolor="#111827",
+        font=dict(family="'Grafana', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", size=12, color="#E5E7EB"),
     )
 
     fig.update_xaxes(
-        title="Horário",
+        title="",
         tickformat="%H:%M",
         showgrid=True,
-        gridcolor="rgba(75, 85, 99, 0.35)",
-        linecolor="rgba(75, 85, 99, 0.7)",
+        gridwidth=1,
+        gridcolor="rgba(75, 85, 99, 0.2)",
+        linecolor="rgba(75, 85, 99, 0.4)",
         zeroline=False,
         ticks="outside",
-        tickfont=dict(color="#CBD5E1"),
-        titlefont=dict(color="#E5E7EB"),
+        ticklen=3,
+        tickfont=dict(color="#A1A5B0", size=9),
+        titlefont=dict(color="#A1A5B0", size=10),
         rangeselector=None,
         rangeslider_visible=False,
+        showline=True,
+        mirror="ticks",
     )
 
     fig.update_yaxes(
         showgrid=True,
-        gridcolor="rgba(75, 85, 99, 0.35)",
-        linecolor="rgba(75, 85, 99, 0.7)",
+        gridwidth=1,
+        gridcolor="rgba(75, 85, 99, 0.2)",
+        linecolor="rgba(75, 85, 99, 0.4)",
         zeroline=False,
         ticks="outside",
-        tickfont=dict(color="#CBD5E1"),
-        titlefont=dict(color="#E5E7EB"),
+        ticklen=3,
+        tickfont=dict(color="#A1A5B0", size=9),
+        titlefont=dict(color="#A1A5B0", size=10),
+        showline=True,
+        mirror="ticks",
+        side="left",
     )
 
     if not has_data:

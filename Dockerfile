@@ -13,20 +13,18 @@ ENV TMPDIR=/tmp
 WORKDIR /app
 
 # Garantir diretórios de cache do apt e instalar dependências mínimas
-# Usa --allow-unauthenticated para contornar problemas de GPG em ambientes RPi isolados
+# Forçamos update com retries e evitamos pacotes parcialmente baixados (causa comum de dpkg erro 1)
 RUN set -eux; \
     mkdir -p /var/cache/apt/archives/partial /var/cache/apt/archives /var/lib/apt/lists; \
-    rm -rf /var/lib/apt/lists/*; \
-    apt-get clean; \
-    apt-get update -o Acquire::AllowInsecureRepositories=true -o Acquire::AllowDowngradeToInsecureRepositories=true || true; \
-    apt-get install -y --allow-unauthenticated --no-install-recommends \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*; \
+    apt-get update -o Acquire::Retries=3 -o Acquire::http::Timeout=30; \
+    apt-get install -y --no-install-recommends \
         apt-utils ca-certificates gnupg dirmngr \
         build-essential gcc gfortran \
         libopenblas-dev libopenblas0 \
         liblapack-dev liblapack3 \
         pkg-config; \
-    apt-get clean; \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* /tmp/* /var/tmp/*
 
 COPY requirements.txt /app/
 

@@ -1,6 +1,11 @@
-# Usar Python 3.11 slim (compatível com Raspberry Pi 3)
-# RPi3 = armv7l, RPi4+ = aarch64
-FROM python:3.11-slim
+# Usar Python 3.11 slim (multi-arch: inclui arm/v7 para RPi3)
+FROM --platform=$TARGETPLATFORM python:3.11-slim
+
+# Build args úteis para multi-arch (registrado no log da build)
+ARG TARGETPLATFORM
+ARG TARGETARCH
+ARG BUILDPLATFORM
+RUN echo "Building for ${TARGETPLATFORM} (${TARGETARCH}) from ${BUILDPLATFORM}"
 
 # Variáveis de ambiente para comportamentos do Python/apt/pip
 ENV PYTHONDONTWRITEBYTECODE 1

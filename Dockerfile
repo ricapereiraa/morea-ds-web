@@ -1,5 +1,4 @@
-# Imagem correta para Raspberry Pi 3 (ARMv7)
-FROM balenalib/raspberrypi3-debian-python:3.11
+FROM balenalib/raspberrypi3-debian-python:3.10-bullseye-run
 
 ARG TARGETPLATFORM
 ARG TARGETARCH
@@ -8,41 +7,80 @@ RUN echo "Building for ${TARGETPLATFORM} (${TARGETARCH}) from ${BUILDPLATFORM}"
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV DEBIAN_FRONTEND=noninteractive
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-ENV TMPDIR=/tmp
+
+# Instalar dependências do sistema (compatível com HypriotOS v1.12.3 - GLIBC 2.31)
+RUN install_packages \
+    build-essential \
+    python3-dev \
+    python3-pip \
+    curl \
+    libatlas-base-dev \
+    libopenblas-dev \
+    liblapack-dev \
+    libjpeg62-turbo-dev \
+    zlib1g-dev \
+    libfreetype6-dev \
+    liblcms2-dev \
+    libwebp-dev \
+    libtiff5-dev \
+    libopenjp2-7 \
+    libffi-dev \
+    pkg-config \
+    gcc \
+    gfortran \
+    meson \
+    ninja-build
 
 WORKDIR /app
 
-RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
-    apt-utils ca-certificates gnupg dirmngr \
-    python3-dev \
-    build-essential gcc gfortran \
-    libatlas-base-dev \
-    libopenblas-dev liblapack-dev \
-    pkg-config \
-    libjpeg62-turbo libjpeg62-turbo-dev \
-    libjpeg-dev \
-    zlib1g zlib1g-dev \
-    libfreetype6 libfreetype6-dev \
-    liblcms2-dev \
-    libwebp-dev \
-    libtiff-dev libopenjp2-7 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* /tmp/*
+COPY requirements.txt .
 
-COPY requirements.txt /app/
+# Reinstalar pip usando get-pip.py (o pip da imagem base está quebrado)
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3 && \
+    pip3 install --no-cache-dir --upgrade setuptools wheel
 
-ENV PIP_EXTRA_INDEX_URL=https://www.piwheels.org/simple
+# Instalar meson e meson-python para compilar numpy
+RUN pip install --no-cache-dir meson meson-python ninja
 
-RUN pip install --no-cache-dir meson meson-python ninja setuptools_scm
+# Instalar numpy compilando do código-fonte para compatibilidade com GLIBC 2.31
+# numpy 1.22.4 é compatível com Python 3.10 e GLIBC 2.31 (compilado do código-fonte)
+# Forçamos compilação do código-fonte para garantir compatibilidade com GLIBC 2.31
+RUN pip install --no-cache-dir --no-binary numpy numpy==1.22.4
 
-RUN pip install --no-cache-dir --prefer-binary numpy==1.26.4 \
-    && pip install --no-cache-dir --prefer-binary plotly==5.19.0 \
-    && pip install --no-cache-dir --prefer-binary -r /app/requirements.txt \
-    && rm -rf ~/.cache/pip
+# Instalar pillow e plotly com versões compatíveis com GLIBC 2.31
+RUN pip install --no-cache-dir \
+    pillow==9.0.1 \
+    plotly==5.18.0
 
-RUN python - <<'PY'
+# Instalar outras dependências do requirements.txt (bibliotecas Python puras não dependem do GLIBC)
+# Mas precisamos substituir numpy, pillow e plotly pelas versões compatíveis
+RUN pip install --no-cache-dir \
+    asgiref==3.7.2 \
+    Django==5.0.1 \
+    django-crontab==0.7.1 \
+    django-extensions==3.2.3 \
+    django-stubs==4.2.7 \
+    django-stubs-ext==4.2.7 \
+    djangorestframework==3.14.0 \
+    gunicorn==22.0.0 \
+    packaging==23.2 \
+    PyMySQL==1.1.1 \
+    pynvim==0.5.0 \
+    python-dateutil==2.8.2 \
+    python-dotenv==1.0.1 \
+    pytz==2024.1 \
+    six==1.16.0 \
+    sqlparse==0.5.0 \
+    tenacity==8.2.3 \
+    types-pytz==2024.1.0.20240203 \
+    types-PyYAML==6.0.12.12 \
+    typing_extensions==4.10.0 \
+    tzdata==2024.1 \
+    cryptography \
+    prometheus-client==0.19.0
+
+# Verificar instalação das bibliotecas críticas
+RUN python3 - <<'PY'
 import numpy
 import plotly.graph_objects as go
 print("numpy", numpy.__version__)
@@ -54,16 +92,6 @@ except Exception as exc:
     raise SystemExit(f"pillow import failed: {exc}")
 PY
 
-COPY . /app/
+COPY . .
 
-RUN mkdir -p /app/media /app/static
-
-COPY docker/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-COPY diagnose_imports.py /app/
-COPY IMPORT_ERROR_FIX.md /app/
-
-EXPOSE 8000
-
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["python3", "main.py"]

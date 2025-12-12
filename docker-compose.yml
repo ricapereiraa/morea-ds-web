@@ -23,7 +23,7 @@ services:
       - traefik-public
 
   web:
-    build: .
+    image: evertonsantos2025/morea-ds-web:latest
     container_name: morea_web
     restart: unless-stopped
     env_file:
